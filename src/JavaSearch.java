@@ -57,6 +57,7 @@ public class JavaSearch {
 
         System.out.println(BinarySearch(arr, key2));
     
+        
 
 
 
