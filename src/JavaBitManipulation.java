@@ -33,9 +33,7 @@ public class JavaBitManipulation {
         int BitMask = a | b;
         return n & BitMask;
     }
-    public static int check2Pow(int n) {
-        
-    }
+    
     public static void main(String args[]) {
         // System.out.print(~2);
         // checkEvOdd(2);
