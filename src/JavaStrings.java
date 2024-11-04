@@ -67,7 +67,7 @@ public class JavaStrings {
 
     public static int LowerVowels(String str) {
         int count = 0;
-        // String dub = "";
+        // String dub = ""; 
         String vowel = "aeiou";
         for (int i = 0; i < str.length(); i++) {
             if (vowel.contains(Character.toString(str.charAt(i)))) {
@@ -87,6 +87,36 @@ public class JavaStrings {
             }
         }
         return "Yes String is Anagram";
+    }
+
+    // String Pallindrome
+
+    public static boolean stringPallindrome(String str) {
+        for (int i=0; i<str.length()/2; i++) {
+            if (str.charAt(i) != str.charAt(str.length()-1-i)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    // String Compression
+
+    public static String stringCompression(String str) {
+        StringBuilder sb = new StringBuilder("");
+        for (int i=0; i<str.length(); i++) {
+            Integer count = 1;
+            while(i<str.length()-1 && str.charAt(i)==str.charAt(i+1)) {
+                count++;
+                i++;
+            }
+            sb.append(str.charAt(i));
+            if (count > 1) {
+                sb.append(count.toString());
+            }
+
+        }
+        return sb.toString();
     }
 
     public static void main(String args[]) {
@@ -152,9 +182,21 @@ public class JavaStrings {
 
         // Checking both Strings are Anagrams or not
 
-        String str = sc.nextLine();
-        String str2 = sc.nextLine();
-        System.out.println(Anagrams(str, str2));
+        // String str = sc.nextLine();
+        // String str2 = sc.nextLine();
+        // System.out.println(Anagrams(str, str2));
+
+        // Checking a string is pallindrome or not
+
+        // String str = new String("racecar");
+
+        // System.out.println(stringPallindrome(str));
+
+        // String Compression
+
+        String str1 = "aaabbcccdd";
+
+        System.out.println(stringCompression(str1));
         
     }
 
