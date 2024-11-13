@@ -67,7 +67,7 @@ public class JavaStrings {
 
     public static int LowerVowels(String str) {
         int count = 0;
-        // String dub = ""; 
+        // String dub = "";
         String vowel = "aeiou";
         for (int i = 0; i < str.length(); i++) {
             if (vowel.contains(Character.toString(str.charAt(i)))) {
@@ -77,12 +77,12 @@ public class JavaStrings {
         }
         return count;
     }
+
     public static String Anagrams(String str, String str2) {
-        for(int i=0; i<str.length(); i++) {
-            if(str2.contains(Character.toString(str.charAt(i)))) {
+        for (int i = 0; i < str.length(); i++) {
+            if (str2.contains(Character.toString(str.charAt(i)))) {
                 continue;
-            }
-            else {
+            } else {
                 return "Not a Anagram";
             }
         }
@@ -92,8 +92,8 @@ public class JavaStrings {
     // String Pallindrome
 
     public static boolean stringPallindrome(String str) {
-        for (int i=0; i<str.length()/2; i++) {
-            if (str.charAt(i) != str.charAt(str.length()-1-i)) {
+        for (int i = 0; i < str.length() / 2; i++) {
+            if (str.charAt(i) != str.charAt(str.length() - 1 - i)) {
                 return false;
             }
         }
@@ -104,9 +104,9 @@ public class JavaStrings {
 
     public static String stringCompression(String str) {
         StringBuilder sb = new StringBuilder("");
-        for (int i=0; i<str.length(); i++) {
+        for (int i = 0; i < str.length(); i++) {
             Integer count = 1;
-            while(i<str.length()-1 && str.charAt(i)==str.charAt(i+1)) {
+            while (i < str.length() - 1 && str.charAt(i) == str.charAt(i + 1)) {
                 count++;
                 i++;
             }
@@ -121,83 +121,82 @@ public class JavaStrings {
 
     public static void main(String args[]) {
         Scanner sc = new Scanner(System.in);
-        // // Check if a String is Pallindrome or not
-        // String str = sc.nextLine();
-        // System.out.print(StrPallindrome(str));
+        // Check if a String is Pallindrome or not
+        String str = sc.nextLine();
+        System.out.print(StrPallindrome(str));
 
         // Shortest Path
 
-        // String str = "WNEENESENNN";
-        // System.out.print(strShortPath(str));
+        String str = "WNEENESENNN";
+        System.out.print(strShortPath(str));
 
         // SubString
 
-        // String str = "Hello World";
-        // System.out.println(SubString(str, 0, 5));
+        String str = "Hello World";
+        System.out.println(SubString(str, 0, 5));
 
-        // System.out.println(str.substring(0,5));
-        // String fruits[] = {"apple","mango","banana"};
-        // String largest = fruits[0];
-        // for(int i=0; i<fruits.length; i++) {
-        // if(largest.compareTo(fruits[i])<0) {
-        // largest = fruits[i];
+        System.out.println(str.substring(0, 5));
+        String fruits[] = { "apple", "mango", "banana" };
+        String largest = fruits[0];
+        for (int i = 0; i < fruits.length; i++) {
+            if (largest.compareTo(fruits[i]) < 0) {
+                largest = fruits[i];
 
-        // }
-        // }
-        // System.out.println(largest);
+            }
+        }
+        System.out.println(largest);
 
         // String Builder
 
-        // StringBuilder sb = new StringBuilder("hw");
-        // sc.toString();
+        StringBuilder sb = new StringBuilder("hw");
+        sc.toString();
 
         // Covert every first letter to upperCase
 
-        // StringBuilder str = new StringBuilder("hi, i am shradha");
-        // str.replace(0, 1,Character.toString(str.charAt(0)).toUpperCase());
-        // for(int i=0; i<str.length(); i++) {
-        // if (str.charAt(i)==' ') {
-        // str.replace(i+1, i+2,Character.toString(str.charAt(i+1)).toUpperCase());
-        // }
-        // }
-        // System.out.println(str);
+        StringBuilder str = new StringBuilder("hi, i am shradha");
+        str.replace(0, 1, Character.toString(str.charAt(0)).toUpperCase());
+        for (int i = 0; i < str.length(); i++) {
+            if (str.charAt(i) == ' ') {
+                str.replace(i + 1, i + 2, Character.toString(str.charAt(i + 1)).toUpperCase());
+            }
+        }
+        System.out.println(str);
 
-        // String str = "aaabbcccdd";
-        // StringCompress(str);
-         
+        String str = "aaabbcccdd";
+        StringCompress(str);
+
         // Program to count the vowels in a given string
 
-        // String str = sc.nextLine();
-        // System.out.print(LowerVowels(str));
+        String str = sc.nextLine();
+        System.out.print(LowerVowels(str));
 
-        // String str = "ShradhaDidi";
-        // String str1 = "ApnaCollege";
-        // String str2 = "ShradhaDidi";
-        // System.out.println(str.equals(str1) + " " + str.equals(str2));
+        String str = "ShradhaDidi";
+        String str1 = "ApnaCollege";
+        String str2 = "ShradhaDidi";
+        System.out.println(str.equals(str1) + " " + str.equals(str2));
 
-        // String str = "ApnaCollege";
-        // String newStr = str.replace("l", "");
-        // System.out.print(newStr);
-
+        String str = "ApnaCollege";
+        String newStr = str.replace("l", "");
+        System.out.print(newStr);
 
         // Checking both Strings are Anagrams or not
 
-        // String str = sc.nextLine();
-        // String str2 = sc.nextLine();
-        // System.out.println(Anagrams(str, str2));
+        String str = sc.nextLine();
+        String str2 = sc.nextLine();
+        System.out.println(Anagrams(str, str2));
 
         // Checking a string is pallindrome or not
 
-        // String str = new String("racecar");
+        String str = new String("racecar");
 
-        // System.out.println(stringPallindrome(str));
+        System.out.println(stringPallindrome(str));
 
         // String Compression
 
-        String str1 = "aaabbcccdd";
+        String str = "aaabbcccdd";
 
         System.out.println(stringCompression(str1));
-        
+
     }
 
 }
