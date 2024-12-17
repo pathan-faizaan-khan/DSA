@@ -28,7 +28,7 @@ public class JavaSearch {
             else {
                 end = mid -1; // Left
             }
-        }
+        } 
         return -1;
     }
      public static void main(String args[]) {
