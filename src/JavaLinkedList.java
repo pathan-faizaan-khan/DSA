@@ -13,7 +13,7 @@ public class JavaLinkedList {
     public static Node head;
     public static int Size;
 
-    public void addFirst(int Data) {
+    public void addlast(int Data) {
         Node newNode = new Node(Data);
         Size++;
 
@@ -49,7 +49,7 @@ public class JavaLinkedList {
     public void addMiddle(int idx, int data) {
 
         if (idx == 0) {
-            addFirst(data);
+            addlast(data);
             return;
         }
         Node newNode = new Node(data);
@@ -67,7 +67,7 @@ public class JavaLinkedList {
 
     }
 
-    public int removeFirst() {
+    public int removelast() {
         if (Size == 0) {
             System.out.println("LL is Empty");
             return Integer.MAX_VALUE;
@@ -280,27 +280,130 @@ public class JavaLinkedList {
 
         prev.next = null;
     }
+    private Node findmid(Node head) {
+        Node slow = head;
+        Node fast = head.next;
+        while (fast!=null && fast.next !=null) {
+            slow = slow.next;
+            fast =  fast.next.next;
+        }
+
+        return slow;
+    }
+    private Node merge(Node head1, Node head2) {
+        Node mergeLL = new Node(-1);
+        Node temp = mergeLL;
+
+        while(head1!=null && head2!=null) {
+            if(head1.data <=head2.data) {
+                temp.next = head1;
+                head1 = head1.next;
+                temp = temp.next;
+            } else {
+                temp.next = head2;
+                head2 = head2.next;
+                temp = temp.next;
+            }
+
+        }
+
+        while (head1!=null) {
+            temp.next = head1;
+            head1 = head1.next;
+            temp = temp.next;      
+        }
+        while (head2!=null) {
+            temp.next = head2;
+            head2 = head2.next;
+            temp = temp.next; 
+        }
+
+        return mergeLL.next;
+    }
+    public Node LLMergeSort(Node head) {
+        //Base case
+        if(head==null || head.next == null) {
+            return head;
+        }
+        // Find Mid
+        Node mid = findmid(head);
+
+        Node rightHead = mid.next;
+        mid.next = null;
+
+        Node right =  LLMergeSort(head);
+        Node left = LLMergeSort(rightHead);
+
+        return merge(right, left);
+    }
+
+    public void zigzagLL() {
+        //Find Mid
+        Node mid = findmid(head);
+        Node prev = null;
+        Node curr = mid.next    ;
+        mid.next = null;
+        Node next;
+
+
+        while(curr!=null) {
+            next =  curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+
+        Node rightHead = prev;
+        Node leftHead= head;
+
+
+        // Alternate step
+       
+        while (leftHead != null && rightHead != null) {
+            Node nextL = leftHead.next;
+            Node nextR = rightHead.next;
+            
+            leftHead.next = rightHead;
+            
+            rightHead.next = nextL;
+            
+            leftHead = nextL;
+            rightHead = nextR;
+        }
+        
+    }
 
     public static void main(String args[]) {
         JavaLinkedList ll = new JavaLinkedList();
-        ll.addFirst(10);
-        ll.addLast(10);
-        ll.addFirst(5);
-        ll.addMiddle(2, 100);
-        tail.next = head.next;
-        // System.out.println(tail.data);
-        // ll.printList();clear
-        // System.out.println(ll.removeFirst());
-        // System.out.println(ll.removeLast());
-        // ll.revrse();
+        // ll.addlast(10);
+        // ll.addLast(10);
+        // ll.addlast(5);
+        // ll.addMiddle(2, 100);
+        // tail.next = head.next;
+        // // System.out.println(tail.data);
+        // // ll.printList();clear
+        // // System.out.println(ll.removelast());
+        // // System.out.println(ll.removeLast());
+        // // ll.revrse();
+        // // ll.printList();
+        // // ll.DeleteNthFromEnd(3);
+        // // ll.printList();
+        // // System.out.println(ll.checkPallindromLL());
+        // // System.out.print(ll.recSearch(100));
+        // System.out.println(isCycle());
+        // ll.cycleBroke();
+        // System.out.println(isCycle());
         // ll.printList();
-        // ll.DeleteNthFromEnd(3);
+        ll.addlast(1);
+        ll.addlast(2);
+        ll.addlast(3);
+        ll.addlast(4);
+        ll.addlast(5);
         // ll.printList();
-        // System.out.println(ll.checkPallindromLL());
-        // System.out.print(ll.recSearch(100));
-        System.out.println(isCycle());
-        ll.cycleBroke();
-        System.out.println(isCycle());
+        // head = ll.LLMergeSort(head);
+        // ll.printList();
+        ll.printList();
+        ll.zigzagLL();
         ll.printList();
 
 
