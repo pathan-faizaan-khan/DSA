@@ -14,6 +14,7 @@ public class JavaStackQ3 {
 
         s.push(top);
     }
+        
     public static void reverseStack(Stack<Integer> s) {
         if(s.isEmpty()) {
             return;
@@ -24,6 +25,7 @@ public class JavaStackQ3 {
         pushAtBottom(s, top);
 
     }
+
     public static void printStack(Stack<Integer> s) {
         while (!s.isEmpty()) {
             System.out.println(s.pop());
