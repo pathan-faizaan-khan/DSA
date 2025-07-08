@@ -1,5 +1,6 @@
 package BinaryTree;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -69,20 +70,20 @@ public class binaryTree {
             que.add(root);
             que.add(null);
             while (!que.isEmpty()) {
-               Node currNode =  que.remove();
+                Node currNode = que.remove();
                 if (currNode == null) {
                     System.out.println();
-                    if(que.isEmpty()) {
+                    if (que.isEmpty()) {
                         break;
                     } else {
                         que.add(null);
                     }
                 } else {
                     System.out.print(currNode.data + " ");
-                    if(currNode.left != null) {
+                    if (currNode.left != null) {
                         que.add(currNode.left);
                     }
-                    if(currNode.right != null) {
+                    if (currNode.right != null) {
                         que.add(currNode.right);
                     }
                 }
@@ -91,7 +92,7 @@ public class binaryTree {
         }
 
         public static int Height(Node root) {
-            if(root == null) {
+            if (root == null) {
                 return 0;
             }
 
@@ -101,19 +102,19 @@ public class binaryTree {
             return Math.max(lh, rh) + 1;
         }
 
-        public static int count(Node root) {  // TC -> O(n)
-            if(root == null) {
+        public static int count(Node root) { // TC -> O(n)
+            if (root == null) {
                 return 0;
             }
 
-            int rc= count(root.right);
+            int rc = count(root.right);
             int lc = count(root.left);
 
             return lc + rc + 1;
         }
 
-        public static int SumOfNode(Node root) {  // TC -> O(n)
-            if(root == null) {
+        public static int SumOfNode(Node root) { // TC -> O(n)
+            if (root == null) {
                 return 0;
             }
 
@@ -122,7 +123,6 @@ public class binaryTree {
 
             return leftSum + rightSum + root.data;
 
-            
         }
 
         public static int Diameter2(Node root) {
@@ -137,6 +137,7 @@ public class binaryTree {
 
             return Math.max(leftH + rightH + 1, Math.max(RightDiameter, leftDiameter));
         }
+
         public static class Info {
             int daim;
             int ht;
@@ -148,7 +149,7 @@ public class binaryTree {
         }
 
         public static Info Diameter(Node root) { // O(n)
-            if(root == null) {
+            if (root == null) {
                 return new Info(0, 0);
             }
 
@@ -162,34 +163,82 @@ public class binaryTree {
         }
 
         public static boolean isIdentical(Node root1, Node root2) {
-            if(root1 == null && root2 == null) {
+            if (root1 == null && root2 == null) {
                 return true;
-            }
-            else if(root1 == null || root2 == null || root1.data != root2.data) {
+            } else if (root1 == null || root2 == null || root1.data != root2.data) {
                 return false;
             }
-
 
             boolean leftI = isIdentical(root1.left, root2.left);
             boolean rightI = isIdentical(root1.right, root2.right);
 
-            if(leftI && rightI) {
+            if (leftI && rightI) {
                 return true;
             } else {
                 return false;
             }
-            
+
         }
+
         public static boolean subTree(Node root1, Node root2) {
-            if (root1 == null) {   
+            if (root1 == null) {
                 return false;
             }
-            if(root1.data == root2.data) {
-              if(isIdentical(root1, root2)) {
-                return true;
-              }
+            if (root1.data == root2.data) {
+                if (isIdentical(root1, root2)) {
+                    return true;
+                }
             }
             return subTree(root1.left, root2) || subTree(root1.right, root2);
+        }
+    }
+
+    static class Infor {
+        Node node;
+        int hd;
+
+        public Infor(Node node, int hd) {
+            this.node = node;
+            this.hd = hd;
+
+        }
+    }
+
+    public static void TopView(Node root) {
+        Queue<Infor> q = new LinkedList<>();
+        HashMap<Integer, Node> map = new HashMap<>();
+
+        q.add(new Infor(root, 0));
+        q.add(null);
+
+        int max = 0, min = 0;
+
+        while (!q.isEmpty()) {
+            Infor curr = q.remove();
+            if (curr == null) {
+                if (q.isEmpty()) {
+                    break;
+                } else {
+                    q.add(null);
+                }
+            }
+            if (curr != null) {
+                if (!map.containsKey(curr.hd)) {
+                    map.put(curr.hd, curr.node);
+                }
+                if (curr.node.left != null) {
+                    q.add(new Infor(curr.node.left, curr.hd - 1));
+                    min = Math.min(min, curr.hd - 1);
+                }
+                if (curr.node.right != null) {
+                    q.add(new Infor(curr.node.right, curr.hd + 1));
+                    max = Math.max(max, curr.hd + 1);
+                }
+            }
+        }
+        System.out.println(min);
+        for (int i = min; i <= max; i++) {
+            System.out.print(map.get(i).data + " ");
         }
     }
 
@@ -197,13 +246,13 @@ public class binaryTree {
         int[] values = { 1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1 };
         BinaryTree Btree = new BinaryTree();
         Node root = Btree.buildTree(values);
-        Node root2 = new Node(2);
-        root2.left = new Node(4);
-        root2.right = new Node(5);
-        root2.left.left = null;
-        root2.left.right = null;
-        root2.right.left = null;
-        root.right.right = null;
+        Node root2 = new Node(1);
+        root2.left = new Node(2);
+        root2.right = new Node(3);
+        root2.left.left = new Node(4);
+        root2.left.right = new Node(5);
+        root2.right.left = new Node(6);
+        root2.right.right = new Node(7);
         // System.out.println(root.data);
 
         // Btree.preorder(root);
@@ -216,9 +265,10 @@ public class binaryTree {
         // System.out.println(Btree.SumOfNode(root));
         // System.out.println(Btree.Diameter2(root));
         // System.out.println(Btree.Diameter(root).daim);
-        Btree.preorder(root2);
-        System.out.println();
-        Btree.preorder(root.left);
-        System.out.println(Btree.subTree(root, root2));
+        // Btree.preorder(root2);
+        // System.out.println();
+        // Btree.preorder(root.left);
+        // System.out.println(Btree.subTree(root, root2));
+        TopView(root2);
     }
 }
