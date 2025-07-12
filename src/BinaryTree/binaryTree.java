@@ -242,6 +242,37 @@ public class binaryTree {
         }
     }
 
+    public static void kthLevel(Node root, int level, int k) {
+        
+        if(root == null) {
+            return;
+        }
+        if(level == k) {
+            System.out.print(root.data + " ");
+            return;
+        }
+        kthLevel(root.left, level+1, k);
+        kthLevel(root.right, level+1, k);
+    }
+
+    public static Node lca(Node root, int n1, int n2) {
+        if(root == null || root.data == n1 || root.data == n2) {
+            return root;
+        }
+
+        Node leftLca = lca(root.left, n1, n2);
+        Node rightLca = lca(root.right, n1, n2);
+
+        if(leftLca == null) {
+            return rightLca;
+        }
+        if(rightLca == null ) {
+            return leftLca;
+        }
+
+        return root;
+    }
+
     public static void main(String args[]) {
         int[] values = { 1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1 };
         BinaryTree Btree = new BinaryTree();
@@ -269,6 +300,10 @@ public class binaryTree {
         // System.out.println();
         // Btree.preorder(root.left);
         // System.out.println(Btree.subTree(root, root2));
-        TopView(root2);
+        // TopView(root2);
+
+        // kthLevel(root2, 1, 3);
+
+        System.out.println(lca(root2, 4, 5).data);
     }
 }
