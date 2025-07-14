@@ -272,6 +272,31 @@ public class binaryTree {
 
         return root;
     }
+    public static int lcaDist(Node root, int n1) {
+        if(root == null) {
+            return -1;
+        }
+
+        if (root.data == n1 ) {
+            return 0;
+        }
+
+        int leftD = lcaDist(root.left, n1);
+        int RightD = lcaDist(root.right, n1);
+
+        if (leftD == -1 && RightD == -1) {
+            return -1;
+        } else if(leftD == -1) {
+            return RightD +1;
+        } else {
+            return leftD +1;
+        }
+    }
+
+    public static int minDist(Node root, int n1, int n2) {
+        Node lca = lca(root, n1, n2);
+        return lcaDist(lca, n1) + lcaDist(lca, n2);
+    }
 
     public static void main(String args[]) {
         int[] values = { 1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1 };
@@ -304,6 +329,9 @@ public class binaryTree {
 
         // kthLevel(root2, 1, 3);
 
-        System.out.println(lca(root2, 4, 5).data);
+        // System.out.println(lca(root2, 4, 5).data);
+    
+
+        System.out.println(minDist(root2, 5, 5));
     }
 }
