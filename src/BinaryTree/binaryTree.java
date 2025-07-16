@@ -243,41 +243,42 @@ public class binaryTree {
     }
 
     public static void kthLevel(Node root, int level, int k) {
-        
-        if(root == null) {
+
+        if (root == null) {
             return;
         }
-        if(level == k) {
+        if (level == k) {
             System.out.print(root.data + " ");
             return;
         }
-        kthLevel(root.left, level+1, k);
-        kthLevel(root.right, level+1, k);
+        kthLevel(root.left, level + 1, k);
+        kthLevel(root.right, level + 1, k);
     }
 
     public static Node lca(Node root, int n1, int n2) {
-        if(root == null || root.data == n1 || root.data == n2) {
+        if (root == null || root.data == n1 || root.data == n2) {
             return root;
         }
 
         Node leftLca = lca(root.left, n1, n2);
         Node rightLca = lca(root.right, n1, n2);
 
-        if(leftLca == null) {
+        if (leftLca == null) {
             return rightLca;
         }
-        if(rightLca == null ) {
+        if (rightLca == null) {
             return leftLca;
         }
 
         return root;
     }
+
     public static int lcaDist(Node root, int n1) {
-        if(root == null) {
+        if (root == null) {
             return -1;
         }
 
-        if (root.data == n1 ) {
+        if (root.data == n1) {
             return 0;
         }
 
@@ -286,16 +287,41 @@ public class binaryTree {
 
         if (leftD == -1 && RightD == -1) {
             return -1;
-        } else if(leftD == -1) {
-            return RightD +1;
+        } else if (leftD == -1) {
+            return RightD + 1;
         } else {
-            return leftD +1;
+            return leftD + 1;
         }
     }
 
     public static int minDist(Node root, int n1, int n2) {
         Node lca = lca(root, n1, n2);
         return lcaDist(lca, n1) + lcaDist(lca, n2);
+    }
+
+    public static int kAncestor(Node root, int n, int k) {
+        if(root == null) {
+            return -1;
+        }
+
+        if (root.data == n) {
+            return 0;
+        }
+
+        int leftDist = kAncestor(root.left, n, k);
+        int righDist = kAncestor(root.right, n, k);
+
+        if (leftDist == -1 && righDist == -1) {
+            return -1;
+        }
+
+        int max = Math.max(leftDist, righDist);
+
+        if(max+1 == k) {
+            System.out.println(root.data);
+        }
+
+        return max+1;
     }
 
     public static void main(String args[]) {
@@ -330,8 +356,8 @@ public class binaryTree {
         // kthLevel(root2, 1, 3);
 
         // System.out.println(lca(root2, 4, 5).data);
-    
 
-        System.out.println(minDist(root2, 5, 5));
+        // System.out.println(minDist(root2, 5, 5));
+        kAncestor(root, 5, 1);
     }
 }
