@@ -324,6 +324,18 @@ public class binaryTree {
         return max+1;
     }
 
+    public static int transform(Node root) {
+        if (root == null) {
+            return 0;
+        } 
+        root.data = (root.left != null ? root.left.data : 0) + (root.right != null ? root.right.data : 0);
+
+        transform(root.left);
+        transform(root.right);
+        
+        return root.data;
+    }
+ 
     public static void main(String args[]) {
         int[] values = { 1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1 };
         BinaryTree Btree = new BinaryTree();
@@ -358,6 +370,9 @@ public class binaryTree {
         // System.out.println(lca(root2, 4, 5).data);
 
         // System.out.println(minDist(root2, 5, 5));
-        kAncestor(root, 5, 1);
+        // kAncestor(root, 5, 1);
+
+        // transform(root2);
+        Btree.levelorder(root2);
     }
 }
