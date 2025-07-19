@@ -35,7 +35,6 @@ public class BST {
         System.out.print(root.data + " ");
         Inorder(root.right);
     }
-
     public static void search(Node root, int key) { // TC -> O(H)
         if(root == null) {
             System.out.println("key not found");
