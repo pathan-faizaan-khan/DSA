@@ -1,4 +1,8 @@
 package Trees;
+
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class BST {
     static class Node {
         int data;
@@ -13,12 +17,12 @@ public class BST {
     }
 
     public static Node Insert(Node root, int v) {
-        if(root == null) {
-           root = new Node(v);
-           return root;
+        if (root == null) {
+            root = new Node(v);
+            return root;
         }
 
-        if(v < root.data) {
+        if (v < root.data) {
             root.left = Insert(root.left, v);
         } else {
             root.right = Insert(root.right, v);
@@ -28,15 +32,16 @@ public class BST {
     }
 
     public static void Inorder(Node root) {
-        if(root == null) {
+        if (root == null) {
             return;
         }
         Inorder(root.left);
         System.out.print(root.data + " ");
         Inorder(root.right);
     }
+
     public static void search(Node root, int key) { // TC -> O(H)
-        if(root == null) {
+        if (root == null) {
             System.out.println("key not found");
             return;
         }
@@ -48,23 +53,91 @@ public class BST {
 
         System.out.println(root.data);
 
-        if(key < root.data) {
+        if (key < root.data) {
             search(root.left, key);
         } else {
             search(root.right, key);
         }
-        
+
     }
-    public static void main(String args[]) {
-        int values[] = {5,1,3,4,2,7};
-        Node root = null;
-        for(int i =0 ; i < values.length ; i++) {
-            root = Insert(root, values[i]);
+
+    public static Node inorderSuccessor(Node root) {
+        while (root.left != null) {
+            root = root.left;
+        }
+        return root;
+    }
+
+    public static Node delete(Node root, int val) {
+
+       
+
+        if (val > root.data) {
+            root.right = delete(root.right, val);
+        } else if (val < root.data) {
+            root.left = delete(root.left, val);
+        } else {
+            // Case 1 -> leaf Node
+            if (root.left == null && root.right == null) {
+                return null;
+            } 
+            // case 2 -> single child
+            if (root.right == null) {
+                return root.left;
+            } else if (root.left == null) {
+                return root.right;
+            }
+            // case 3 -> two child
+
+            Node IS = inorderSuccessor(root.right);
+
+            root.data = IS.data;
+            root.right = delete(root.right, IS.data);
+
+        }
+        return root;
+
+    }
+
+      public static void levelorder(Node root) {
+            Queue<Node> que = new LinkedList<>();
+            que.add(root);
+            que.add(null);
+            while (!que.isEmpty()) {
+                Node currNode = que.remove();
+                if (currNode == null) {
+                    System.out.println();
+                    if (que.isEmpty()) {
+                        break;
+                    } else {
+                        que.add(null);
+                    }
+                } else {
+                    System.out.print(currNode.data + " ");
+                    if (currNode.left != null) {
+                        que.add(currNode.left);
+                    }
+                    if (currNode.right != null) {
+                        que.add(currNode.right);
+                    }
+                }
+
+            }
         }
 
-        // Inorder(root);
+    public static void main(String args[]) {
+        int values[] = { 8, 5, 3, 1, 4, 6, 10, 11, 14 };
+        Node root = null;
+        for (int i = 0; i < values.length; i++) {
+            root = Insert(root, values[i]);
+        }
+        levelorder(root);
+        Inorder(root);
+        root = delete(root, 1);
+        System.out.println();
+        Inorder(root);
         // System.out.println(root.left.data);
-        search(root, 2);
+        // search(root, 2);
 
     }
 }
