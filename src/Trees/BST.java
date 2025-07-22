@@ -70,8 +70,6 @@ public class BST {
 
     public static Node delete(Node root, int val) {
 
-       
-
         if (val > root.data) {
             root.right = delete(root.right, val);
         } else if (val < root.data) {
@@ -80,7 +78,7 @@ public class BST {
             // Case 1 -> leaf Node
             if (root.left == null && root.right == null) {
                 return null;
-            } 
+            }
             // case 2 -> single child
             if (root.right == null) {
                 return root.left;
@@ -99,31 +97,48 @@ public class BST {
 
     }
 
-      public static void levelorder(Node root) {
-            Queue<Node> que = new LinkedList<>();
-            que.add(root);
-            que.add(null);
-            while (!que.isEmpty()) {
-                Node currNode = que.remove();
-                if (currNode == null) {
-                    System.out.println();
-                    if (que.isEmpty()) {
-                        break;
-                    } else {
-                        que.add(null);
-                    }
+    public static void levelorder(Node root) {
+        Queue<Node> que = new LinkedList<>();
+        que.add(root);
+        que.add(null);
+        while (!que.isEmpty()) {
+            Node currNode = que.remove();
+            if (currNode == null) {
+                System.out.println();
+                if (que.isEmpty()) {
+                    break;
                 } else {
-                    System.out.print(currNode.data + " ");
-                    if (currNode.left != null) {
-                        que.add(currNode.left);
-                    }
-                    if (currNode.right != null) {
-                        que.add(currNode.right);
-                    }
+                    que.add(null);
                 }
-
+            } else {
+                System.out.print(currNode.data + " ");
+                if (currNode.left != null) {
+                    que.add(currNode.left);
+                }
+                if (currNode.right != null) {
+                    que.add(currNode.right);
+                }
             }
+
         }
+    }
+
+    public static void printInRange(Node root, int k1, int k2) {
+        if(root == null) {
+            return;
+        }
+
+        if(root.data >= k1 && root.data <= k2) {
+            printInRange(root.left, k1, k2);
+            System.out.print(root.data + " ");
+            printInRange(root.right, k1, k2);
+        }
+        else if(root.data > k1) { 
+            printInRange(root.left, k1, k2);
+        } else {
+            printInRange(root.right, k1, k2);
+        }
+    }
 
     public static void main(String args[]) {
         int values[] = { 8, 5, 3, 1, 4, 6, 10, 11, 14 };
@@ -132,12 +147,15 @@ public class BST {
             root = Insert(root, values[i]);
         }
         levelorder(root);
-        Inorder(root);
-        root = delete(root, 1);
-        System.out.println();
-        Inorder(root);
+        // Inorder(root);
+        // root = delete(root, 1);
+        // System.out.println();
+        // Inorder(root);
         // System.out.println(root.left.data);
         // search(root, 2);
+
+        // Inorder(root);
+        printInRange(root, 1, 5);
 
     }
 }
