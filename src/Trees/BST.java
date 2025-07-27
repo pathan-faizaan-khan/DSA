@@ -1,5 +1,6 @@
 package Trees;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -122,6 +123,28 @@ public class BST {
 
         }
     }
+    public static void printList(ArrayList<Integer> list) {
+        for(int val : list) {
+            System.out.print(val + "->");
+        }
+        System.out.println("Null");
+    }
+    public static void printLeafPath(Node root, ArrayList<Integer> list) {
+        if(root == null) {
+            return;
+        }
+        list.add(root.data);
+        if(root.left == null && root.right == null) {
+            printList(list);
+        }
+
+        printLeafPath(root.left, list);
+        printLeafPath(root.right, list);
+
+        list.remove(list.size()-1);
+
+
+    }
 
     public static void printInRange(Node root, int k1, int k2) {
         if(root == null) {
@@ -146,7 +169,7 @@ public class BST {
         for (int i = 0; i < values.length; i++) {
             root = Insert(root, values[i]);
         }
-        levelorder(root);
+        // Inorder(root);
         // Inorder(root);
         // root = delete(root, 1);
         // System.out.println();
@@ -155,7 +178,9 @@ public class BST {
         // search(root, 2);
 
         // Inorder(root);
-        printInRange(root, 1, 5);
+        // printInRange(root, 1, 5);
+        
+        printLeafPath(root, new ArrayList<>());
 
     }
 }
