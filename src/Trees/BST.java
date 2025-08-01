@@ -163,6 +163,37 @@ public class BST {
         }
     }
 
+    public static boolean isValidBST(Node root, Node min, Node max) {
+        if(root == null) {
+            return true;
+        }
+
+        if(min != null && root.data <= min.data) {
+            return false;
+        }
+
+        else if (max != null && root.data >= max.data) {
+            return false;
+        }
+
+        return isValidBST(root.left, min, root) && isValidBST(root.right, root, max);
+
+     }
+
+    public static Node rootMirror(Node root) {
+        if(root == null) {
+            return root;
+        }
+
+        Node leftS = rootMirror(root.left);
+        Node rightS = rootMirror(root.right);
+
+        root.left = rightS;
+        root.right = leftS;
+
+
+        return root;
+    }
     public static void main(String args[]) {
         int values[] = { 8, 5, 3, 1, 4, 6, 10, 11, 14 };
         Node root = null;
@@ -180,7 +211,16 @@ public class BST {
         // Inorder(root);
         // printInRange(root, 1, 5);
         
-        printLeafPath(root, new ArrayList<>());
+        // printLeafPath(root, new ArrayList<>());
+
+        // System.out.println(isValidBST(root, null, null));
+
+        levelorder(root);
+        rootMirror(root);
+        System.out.println("---------------------------");
+        levelorder(root);
+
+
 
     }
 }
