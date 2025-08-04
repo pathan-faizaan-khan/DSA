@@ -194,6 +194,29 @@ public class BST {
 
         return root;
     }
+
+    public static Node createBST(int[] arr,int strt,int end) {
+        if (strt > end) {
+            return null;
+        }
+        int mid = (strt + end)/2;
+
+        Node root = new Node(arr[mid]);
+
+        root.left = createBST(arr, strt, mid-1);
+        root.right = createBST(arr, mid+1, end);
+
+        return root;
+    }
+
+    public static void Preorder(Node root) {
+        if(root== null) {
+            return;
+        }
+        System.out.print(root.data+" ");
+        Preorder(root.left);
+        Preorder(root.right);
+    }
     public static void main(String args[]) {
         int values[] = { 8, 5, 3, 1, 4, 6, 10, 11, 14 };
         Node root = null;
@@ -215,12 +238,16 @@ public class BST {
 
         // System.out.println(isValidBST(root, null, null));
 
-        levelorder(root);
-        rootMirror(root);
-        System.out.println("---------------------------");
-        levelorder(root);
-
-
-
+        // levelorder(root);
+        // rootMirror(root);
+        // System.out.println("---------------------------");
+        // levelorder(root);
+        // Preorder(root);
+        Inorder(root);
+        int[] arr = {3,5,6,8,10,11,12};
+        Node newRoot = createBST(arr, 0, arr.length-1);
+        Inorder(newRoot);
+        Preorder(newRoot);
+        
     }
 }
