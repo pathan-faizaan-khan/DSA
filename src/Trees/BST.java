@@ -217,12 +217,53 @@ public class BST {
         Preorder(root.left);
         Preorder(root.right);
     }
+
+    public static void getInorder(Node root, ArrayList<Integer> inorder) {
+        if (root == null) {
+            return;
+        }
+
+        getInorder(root.left, inorder);
+        inorder.add(root.data);
+        getInorder(root.right, inorder);
+    }
+
+    public static Node createBalancedBST(ArrayList<Integer> inorder, int start, int end) {
+        if (start > end) {
+            return null;
+        }
+
+        int mid = (start + end) /2;
+        Node root = new Node(inorder.get(mid));
+
+        root.left = createBalancedBST(inorder, start, mid-1);
+        root.right = createBalancedBST(inorder, mid+1, end);
+
+        return root;
+    }
+    public static Node balancedBST(Node root){
+
+        ArrayList<Integer> inorder = new ArrayList<>(); // O(n)
+        getInorder(root, inorder);
+
+        root = createBalancedBST(inorder, 0, inorder.size()-1); // O(n)
+        return root;
+    }
     public static void main(String args[]) {
         int values[] = { 8, 5, 3, 1, 4, 6, 10, 11, 14 };
         Node root = null;
         for (int i = 0; i < values.length; i++) {
             root = Insert(root, values[i]);
         }
+
+        Node tree = new Node(8);
+        tree.left = new Node(6);
+        tree.left.left = new Node(5);
+        tree.left.left.left = new Node(3);
+        tree.right = new Node(10);
+        tree.right.right = new Node(11);
+        tree.right.right.right = new Node(12); 
+
         // Inorder(root);
         // Inorder(root);
         // root = delete(root, 1);
@@ -242,12 +283,16 @@ public class BST {
         // rootMirror(root);
         // System.out.println("---------------------------");
         // levelorder(root);
-        // Preorder(root);
-        Inorder(root);
-        int[] arr = {3,5,6,8,10,11,12};
-        Node newRoot = createBST(arr, 0, arr.length-1);
-        Inorder(newRoot);
-        Preorder(newRoot);
-        
+        // // Preorder(root);
+        // Inorder(root);
+        // int[] arr = {3,5,6,8,10,11,12};
+        // Node newRoot = createBST(arr, 0, arr.length-1);
+        // Inorder(newRoot);
+        // Preorder(newRoot);
+
+        Node tree2 = balancedBST(tree);
+
+        Preorder(tree2);
+
     }
 }
